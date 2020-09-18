@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+    has_many :microposts, dependent: :destroy
     before_save { email.downcase! }
     validates :name, presence: true, length: { maximum: 50 }
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -8,6 +9,12 @@ class User < ApplicationRecord
     has_secure_password
     validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
     validates :phone_number, length: { minimum: 9 }
+
+    # Defines a proto-feed.
+    # See "Following users" for the full implementation. 
+    def feed
+        Micropost.where("user_id = ?", id) 
+    end
 
     # Returns the hash digest of the given string.
     def User.digest(string)
