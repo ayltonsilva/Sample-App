@@ -7,9 +7,9 @@ module SessionsHelper
 
     # Returns the current logged-in user (if any).
     def current_user
-        if session[:user_id]
-            @current_user ||= User.find_by(id: session[:user_id])
-        end 
+        @current_user ||= begin
+            User.find_by(id: session[:user_id]) if session[:user_id]
+        end
     end
 
     # Returns true if the given user is the current user.
@@ -19,7 +19,7 @@ module SessionsHelper
         
     # Returns true if the user is logged in, false otherwise.
     def logged_in? 
-        !current_user.nil?
+        current_user.present?
     end
 
     # Logs out the current user.
@@ -36,6 +36,6 @@ module SessionsHelper
     
     # Stores the URL trying to be accessed.
     def store_location
-    session[:forwarding_url] = request.original_url if request.get?
+        session[:forwarding_url] = request.original_url if request.get?
     end
 end
