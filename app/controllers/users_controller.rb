@@ -14,6 +14,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @user.build_address
   end
 
   def create
@@ -65,7 +66,7 @@ class UsersController < ApplicationController
   private
   def user_params
     params.require(:user).permit(:name, :email, :password,
-    :password_confirmation, :phone_number)
+    :password_confirmation, :phone_number, address_attributes: [:address_name, :city, :zip_code, :country])
   end
 
   # Confirms the correct user.

@@ -1,20 +1,36 @@
 <%= form_with(model: @user, local: true) do |f| %>
-    <%= render 'shared/error_messages', object: f.object %>
+	<%= render 'shared/error_messages', object: f.object %>
 
-    <%= f.label :name %>
-    <%= f.text_field :name, class: 'form-control' %>
-    
-    <%= f.label :phone_number %>
-    <%= f.text_field :phone_number, class: 'form-control' %>
+	<%= f.label :name %>
+	<%= f.text_field :name, class: 'form-control' %>
+	
+	<%= f.label :phone_number %>
+	<%= f.text_field :phone_number, class: 'form-control' %>
 
-    <%= f.label :email %>
-    <%= f.email_field :email, class: 'form-control' %>
-    
-    <%= f.label :password %>
-    <%= f.password_field :password, class: 'form-control' %>
-    
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation, class: 'form-control' %>
-    
-    <%= f.submit yield(:button_text), class: "btn btn-primary" %> 
+		<%= f.fields_for :address do |a| %>
+
+			<%= a.label :address_name %>
+			<%= a.text_field :address_name, class: 'form-control' %>
+
+			<%= a.label :city %>
+			<%= a.text_field :city, class: 'form-control' %>
+
+			<%= a.label :zip_code %>
+			<%= a.text_field :zip_code, class: 'form-control' %>
+
+			<%= a.label :country %>
+			<%= a.text_field :country, class: 'form-control' %>
+
+		<% end %>
+	
+	<%= f.label :email %>
+	<%= f.email_field :email, class: 'form-control' %>
+	
+	<%= f.label :password %>
+	<%= f.password_field :password, class: 'form-control' %>
+	
+	<%= f.label :password_confirmation %>
+	<%= f.password_field :password_confirmation, class: 'form-control' %>
+	
+	<%= f.submit yield(:button_text), class: "btn btn-primary" %> 
 <% end %>
