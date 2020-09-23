@@ -11,11 +11,6 @@ class AddressTest < ActiveSupport::TestCase
     assert @address.valid?
   end
 
-  test "user id should be present" do 
-    @address.user_id = nil 
-    assert_not @address.valid?
-  end
-
   test "address should be present" do 
     @address.address_name = " " 
     assert_not @address.valid?
