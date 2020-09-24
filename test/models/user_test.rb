@@ -74,6 +74,14 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  test "associated address should be destroyed" do
+    @user.save
+    @user.create_address(address_name: "Lorem ipsum", city: "Lisbon", zip_code: "2625-231", country: "Portugal")
+    assert_difference 'Address.count', -1 do
+      @user.destroy 
+    end
+  end
+
   test "should follow and unfollow a user" do
     michael = users(:michael)
     archer = users(:archer)

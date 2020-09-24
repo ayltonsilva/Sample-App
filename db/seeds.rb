@@ -12,6 +12,7 @@ User.create!(name:  "Example User",
             password: "foobar",
             password_confirmation: "foobar", 
             phone_number: "999999999",
+            address_attributes: {address_name: "Admin Avenue", city: "Lisbon", zip_code: "1100-101", country: "Portugal"},
             admin: true)
 
     
@@ -22,11 +23,16 @@ User.create!(name:  "Example User",
     email = "example-#{n+1}@railstutorial.org" 
     password = "password"
     phone_number = "99999999#{n+1}"
+    address_name = Faker::Address.street_address
+    city = Faker::Address.city
+    zip_code = Faker::Address.zip_code
+    country = Faker::Address.country
     User.create!(name: name,
     email: email,
     password: password,
     password_confirmation: password,
-    phone_number: phone_number)
+    phone_number: phone_number,
+    address_attributes: {address_name: address_name, city: city, zip_code: zip_code, country: country})
 end
 
 # Generate microposts for a subset of users. 
@@ -35,6 +41,7 @@ users = User.order(:created_at).take(6)
     content = Faker::Lorem.sentence(word_count: 5)
     users.each { |user| user.microposts.create!(content: content) } 
 end
+
 
 # Create following relationships.
 users = User.all
