@@ -27,6 +27,16 @@ class User < ApplicationRecord
         Micropost.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id)
     end
 
+    def filter_feed(date, filter_type)
+        if filter_type == "less-than"
+            Micropost.where("created_at < '#{date}'")
+        elsif filter_type == "equal"
+            Micropost.where("created_at >= '#{date}' AND created_at < ('#{date.at_end_of_day}')")
+        elsif filter_type == "greater-than"
+            Micropost.where("created_at > '#{date}'")
+        end
+    end
+
     # Follows a user.
     def follow(other_user) 
         following << other_user

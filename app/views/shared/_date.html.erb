@@ -1,0 +1,8 @@
+<%= form_tag(:action => :date_filter, :controller => "static_pages") do %>
+  <%= text_field_tag :date, nil, placeholder: "Insert date YYMMDD..." %>
+  <%= radio_button_tag "filter_type", "less-than"%> Less Than
+  <%= radio_button_tag "filter_type", "equal"%> Equal
+  <%= radio_button_tag "filter_type", "greater-than"%> Greater Than
+
+  <%= submit_tag "Filter Feed", class: "btn btn-primary" %>
+<% end %>
