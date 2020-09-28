@@ -29,11 +29,11 @@ class User < ApplicationRecord
 
     def filter_feed(date, filter_type)
         if filter_type == "less-than"
-            Micropost.where(":created_at < #{date}")
+            Micropost.where("created_at < '#{date}'")
         elsif filter_type == "equal"
-            Micropost.where(":created_at = #{date}")
+            Micropost.where("created_at >= '#{date}' AND created_at < ('#{date.at_end_of_day}')")
         elsif filter_type == "greater-than"
-            Micropost.where(":created_at > #{date}")
+            Micropost.where("created_at > '#{date}'")
         end
     end
 

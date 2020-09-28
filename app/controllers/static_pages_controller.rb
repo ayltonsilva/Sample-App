@@ -11,9 +11,9 @@ class StaticPagesController < ApplicationController
   end
 
   def date_filter
-    @feed_items = current_user.filter_feed(params[:date], params[:filter_type]).paginate(page: params[:page])
+    @feed_items = current_user.filter_feed(Time.parse(params[:date]), params[:filter_type]).paginate(page: params[:page])
     flash[:success] = "Feed filtered!"
-    redirect_to root_url
+    render 'feed_filtered'
   end
 
   def about
